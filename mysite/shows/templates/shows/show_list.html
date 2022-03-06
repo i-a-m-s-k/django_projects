@@ -1,0 +1,30 @@
+{% extends "base_bootstrap.html" %}
+
+{% block content %}
+  <h1>Show List</h1>
+  {% if show_list %}
+  <ul>
+    {% for show in show_list %}
+      <li>
+          {{ show.nickname }} ({{ show.genre }})
+          (<a href="{% url 'shows:show_update' show.id %}">Update</a> |
+          <a href="{% url 'shows:show_delete' show.id %}">Delete</a>) <br/>
+          {{ show.minutes }} ({{ show.summary }})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no shows in the library.</p>
+  {% endif %}
+  <p>
+    {% if genre_count > 0 %}
+      <a href="{% url 'shows:show_create' %}">Add a show</a>
+    {% else %}
+      Please add a genre before you add a show.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'shows:genre_list' %}">View genres</a> ({{ genre_count }}) |
+    <a href="{% url 'shows:genre_create' %}">Add a genre</a>
+  </p>
+{% endblock %}
